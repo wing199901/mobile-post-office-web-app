@@ -1,0 +1,259 @@
+<div class="edit-container">
+  <!-- 載入指示器 -->
+  @if (loadingService.isLoading()) {
+  <div class="loading-container">
+    <mat-spinner diameter="50"></mat-spinner>
+    <p>{{ translate('list.loading') }}</p>
+  </div>
+  }
+
+  <!-- 編輯表單 -->
+  @if (!loadingService.isLoading()) {
+  <mat-card class="edit-card">
+    <mat-card-header>
+      <mat-card-title>
+        @if (isEditMode()) {
+        {{ translate('form.edit') }}
+        } @else {
+        {{ translate('form.create') }}
+        }
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="editForm" (ngSubmit)="onSubmit()" class="edit-form">
+        <!-- Mobile Code & Seq -->
+        <div class="time-row">
+          <mat-form-field appearance="outline" class="time-field">
+            <mat-label>Mobile Code</mat-label>
+            <input matInput formControlName="mobileCode" type="text" />
+            <mat-icon matPrefix>qr_code</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="time-field">
+            <mat-label>Sequence</mat-label>
+            <input matInput formControlName="seq" type="number" />
+            <mat-icon matPrefix>numbers</mat-icon>
+            @if (editForm.get('seq')?.invalid && editForm.get('seq')?.touched) {
+            <mat-error>{{ getErrorMessage('seq') }}</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <!-- Names -->
+        <div class="multi-lang-section">
+          <h4>Names *</h4>
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Name (EN)</mat-label>
+            <input matInput formControlName="nameEN" type="text" />
+            <mat-icon matPrefix>label</mat-icon>
+            @if (editForm.get('nameEN')?.invalid && editForm.get('nameEN')?.touched) {
+            <mat-error>{{ getErrorMessage('nameEN') }}</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Name (TC - 繁體)</mat-label>
+            <input matInput formControlName="nameTC" type="text" />
+            <mat-icon matPrefix>translate</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Name (SC - 简体)</mat-label>
+            <input matInput formControlName="nameSC" type="text" />
+            <mat-icon matPrefix>translate</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <!-- Districts -->
+        <div class="multi-lang-section">
+          <h4>Districts *</h4>
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>District (EN)</mat-label>
+            <mat-select formControlName="districtEN" required>
+              @for (district of districtsEN(); track district) {
+              <mat-option [value]="district">{{ district }}</mat-option>
+              }
+            </mat-select>
+            <mat-icon matPrefix>location_city</mat-icon>
+            <mat-hint>Please select a district</mat-hint>
+            @if (editForm.get('districtEN')?.invalid && editForm.get('districtEN')?.touched) {
+            <mat-error>{{ getErrorMessage('districtEN') }}</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>District (TC - 繁體)</mat-label>
+            <mat-select formControlName="districtTC" required>
+              @for (district of districtsTC(); track district) {
+              <mat-option [value]="district">{{ district }}</mat-option>
+              }
+            </mat-select>
+            <mat-icon matPrefix>translate</mat-icon>
+            <mat-hint>請選擇地區</mat-hint>
+            @if (editForm.get('districtTC')?.invalid && editForm.get('districtTC')?.touched) {
+            <mat-error>{{ getErrorMessage('districtTC') }}</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>District (SC - 简体)</mat-label>
+            <mat-select formControlName="districtSC" required>
+              @for (district of districtsSC(); track district) {
+              <mat-option [value]="district">{{ district }}</mat-option>
+              }
+            </mat-select>
+            <mat-icon matPrefix>translate</mat-icon>
+            <mat-hint>请选择地区</mat-hint>
+            @if (editForm.get('districtSC')?.invalid && editForm.get('districtSC')?.touched) {
+            <mat-error>{{ getErrorMessage('districtSC') }}</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <!-- Locations -->
+        <div class="multi-lang-section">
+          <h4>Locations *</h4>
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Location (EN)</mat-label>
+            <input matInput formControlName="locationEN" type="text" />
+            <mat-icon matPrefix>place</mat-icon>
+            @if (editForm.get('locationEN')?.invalid && editForm.get('locationEN')?.touched) {
+            <mat-error>{{ getErrorMessage('locationEN') }}</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Location (TC - 繁體)</mat-label>
+            <input matInput formControlName="locationTC" type="text" />
+            <mat-icon matPrefix>translate</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Location (SC - 简体)</mat-label>
+            <input matInput formControlName="locationSC" type="text" />
+            <mat-icon matPrefix>translate</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <!-- Addresses -->
+        <div class="multi-lang-section">
+          <h4>Addresses *</h4>
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Address (EN)</mat-label>
+            <textarea matInput formControlName="addressEN" rows="2"></textarea>
+            <mat-icon matPrefix>home</mat-icon>
+            @if (editForm.get('addressEN')?.invalid && editForm.get('addressEN')?.touched) {
+            <mat-error>{{ getErrorMessage('addressEN') }}</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Address (TC - 繁體)</mat-label>
+            <textarea matInput formControlName="addressTC" rows="2"></textarea>
+            <mat-icon matPrefix>translate</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Address (SC - 简体)</mat-label>
+            <textarea matInput formControlName="addressSC" rows="2"></textarea>
+            <mat-icon matPrefix>translate</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <!-- 星期 -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>{{ translate('form.dayOfWeek') }}</mat-label>
+          <mat-select formControlName="dayOfWeekCode" required>
+            @for (day of daysOfWeek; track day.code) {
+            <mat-option [value]="day.code">{{ day.name }}</mat-option>
+            }
+          </mat-select>
+          <mat-icon matPrefix>calendar_today</mat-icon>
+          @if (editForm.get('dayOfWeekCode')?.invalid && editForm.get('dayOfWeekCode')?.touched) {
+          <mat-error>{{ getErrorMessage('dayOfWeekCode') }}</mat-error>
+          }
+        </mat-form-field>
+
+        <!-- 時間行 -->
+        <div class="time-row">
+          <!-- 開放時間 -->
+          <mat-form-field appearance="outline" class="time-field">
+            <mat-label>{{ translate('form.openAt') }}</mat-label>
+            <input matInput formControlName="openHour" type="time" required />
+            <mat-icon matPrefix>access_time</mat-icon>
+            @if (editForm.get('openHour')?.invalid && editForm.get('openHour')?.touched) {
+            <mat-error>{{ getErrorMessage('openHour') }}</mat-error>
+            }
+          </mat-form-field>
+
+          <!-- 關閉時間 -->
+          <mat-form-field appearance="outline" class="time-field">
+            <mat-label>{{ translate('form.closeAt') }}</mat-label>
+            <input matInput formControlName="closeHour" type="time" required />
+            <mat-icon matPrefix>access_time</mat-icon>
+            @if (editForm.get('closeHour')?.invalid && editForm.get('closeHour')?.touched) {
+            <mat-error>{{ getErrorMessage('closeHour') }}</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <!-- 表單層級錯誤 -->
+        @if ((editForm.errors?.['timeRange'] || editForm.errors?.['atLeastOneName'] ||
+        editForm.errors?.['atLeastOneDistrict'] || editForm.errors?.['atLeastOneLocation'] ||
+        editForm.errors?.['atLeastOneAddress']) && editForm.touched) {
+        <div class="form-error">
+          <mat-icon color="warn">error</mat-icon>
+          <span>{{ getFormErrorMessage() }}</span>
+        </div>
+        }
+
+        <!-- Coordinates -->
+        <div class="time-row">
+          <mat-form-field appearance="outline" class="time-field">
+            <mat-label>Latitude</mat-label>
+            <input
+              matInput
+              formControlName="latitude"
+              type="number"
+              step="0.000001"
+              placeholder="22.28"
+            />
+            <mat-icon matPrefix>my_location</mat-icon>
+            @if (editForm.get('latitude')?.invalid && editForm.get('latitude')?.touched) {
+            <mat-error>{{ getErrorMessage('latitude') }}</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="time-field">
+            <mat-label>Longitude</mat-label>
+            <input
+              matInput
+              formControlName="longitude"
+              type="number"
+              step="0.000001"
+              placeholder="114.17"
+            />
+            <mat-icon matPrefix>map</mat-icon>
+            @if (editForm.get('longitude')?.invalid && editForm.get('longitude')?.touched) {
+            <mat-error>{{ getErrorMessage('longitude') }}</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <!-- 按鈕 -->
+        <div class="button-row">
+          <button mat-button type="button" (click)="onCancel()">
+            <mat-icon>cancel</mat-icon>
+            {{ translate('form.cancel') }}
+          </button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="editForm.invalid">
+            <mat-icon>save</mat-icon>
+            {{ translate('form.submit') }}
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+  }
+</div>

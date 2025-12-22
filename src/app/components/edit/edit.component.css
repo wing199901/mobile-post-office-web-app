@@ -1,0 +1,116 @@
+.edit-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  gap: 1rem;
+}
+
+.edit-card {
+  margin-bottom: 2rem;
+}
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.time-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.time-field {
+  width: 100%;
+}
+
+.form-error {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background-color: #ffebee;
+  border-radius: 4px;
+  color: #c62828;
+}
+
+.form-error mat-icon {
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+}
+
+.button-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.multi-lang-section {
+  padding: 1rem;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  margin: 0.5rem 0;
+}
+
+.multi-lang-section h4 {
+  margin: 0 0 1rem 0;
+  color: #666;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* 平板 */
+@media (max-width: 768px) {
+  .edit-container {
+    padding: 1rem 0.5rem;
+  }
+
+  .time-row {
+    grid-template-columns: 1fr;
+  }
+
+  .button-row {
+    flex-direction: column-reverse;
+  }
+
+  .button-row button {
+    width: 100%;
+  }
+}
+
+/* 手機 */
+@media (max-width: 480px) {
+  .edit-container {
+    padding: 0.5rem;
+  }
+
+  .edit-card {
+    margin-bottom: 1rem;
+  }
+
+  mat-card-header {
+    padding: 1rem;
+  }
+
+  mat-card-content {
+    padding: 0 1rem 1rem;
+  }
+}

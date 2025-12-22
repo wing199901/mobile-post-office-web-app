@@ -1,0 +1,308 @@
+<div class="detail-container">
+  <!-- Top bar with back button and checkbox -->
+  <div class="top-bar">
+    <button mat-icon-button (click)="goBack()" class="back-button">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <span class="page-title">{{ translate('detail.back') }}</span>
+    <mat-checkbox
+      [checked]="showAllLang()"
+      (change)="toggleShowAllLang($event.checked)"
+      class="show-all-lang-checkbox"
+    >
+      {{ translate('filter.showAllLang') }}
+    </mat-checkbox>
+  </div>
+
+  <!-- 載入指示器 -->
+  @if (loadingService.isLoading()) {
+  <div class="loading-container">
+    <mat-spinner diameter="50"></mat-spinner>
+    <p>{{ translate('list.loading') }}</p>
+  </div>
+  }
+
+  <!-- 錯誤訊息 -->
+  @if (errorMessage() && !loadingService.isLoading()) {
+  <mat-card class="error-card">
+    <mat-card-content>
+      <div class="error-message">
+        <mat-icon color="warn">error</mat-icon>
+        <p>{{ errorMessage() }}</p>
+      </div>
+      <button mat-raised-button color="primary" (click)="goBack()">
+        {{ translate('detail.back') }}
+      </button>
+    </mat-card-content>
+  </mat-card>
+  }
+
+  <!-- 記錄詳情 -->
+  @if (record() && !loadingService.isLoading()) {
+  <mat-card class="detail-card">
+    <mat-card-header>
+      @if (!showAllLang()) {
+      <mat-card-title>{{ record()!.name }}</mat-card-title>
+      }
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="detail-grid">
+        @if (showAllLang()) {
+        <!-- Name (EN) -->
+        <div class="detail-item">
+          <div class="detail-label">
+            <mat-icon>label</mat-icon>
+            <span>Name (EN)</span>
+          </div>
+          <div class="detail-value">{{ record()!.nameEN || '-' }}</div>
+        </div>
+
+        <!-- 名稱 (繁) -->
+        <div class="detail-item">
+          <div class="detail-label">
+            <mat-icon>label</mat-icon>
+            <span>名稱 (繁)</span>
+          </div>
+          <div class="detail-value">{{ record()!.nameTC || '-' }}</div>
+        </div>
+
+        <!-- 名称 (简) -->
+        <div class="detail-item">
+          <div class="detail-label">
+            <mat-icon>label</mat-icon>
+            <span>名称 (简)</span>
+          </div>
+          <div class="detail-value">{{ record()!.nameSC || '-' }}</div>
+        </div>
+        } @if (!showAllLang()) {
+        <!-- 地區 (單一語言) -->
+        <div class="detail-item">
+          <div class="detail-label">
+            <mat-icon>location_city</mat-icon>
+            <span>{{ translate('detail.district') }}</span>
+          </div>
+          <div class="detail-value">{{ record()!.district }}</div>
+        </div>
+        } @if (showAllLang()) {
+        <!-- District (EN) -->
+        <div class="detail-item">
+          <div class="detail-label">
+            <mat-icon>location_city</mat-icon>
+            <span>District (EN)</span>
+          </div>
+          <div class="detail-value">{{ record()!.districtEN || '-' }}</div>
+        </div>
+
+        <!-- 地區 (繁) -->
+        <div class="detail-item">
+          <div class="detail-label">
+            <mat-icon>location_city</mat-icon>
+            <span>地區 (繁)</span>
+          </div>
+          <div class="detail-value">{{ record()!.districtTC || '-' }}</div>
+        </div>
+
+        <!-- 地区 (简) -->
+        <div class="detail-item">
+          <div class="detail-label">
+            <mat-icon>location_city</mat-icon>
+            <span>地区 (简)</span>
+          </div>
+          <div class="detail-value">{{ record()!.districtSC || '-' }}</div>
+        </div>
+        } @if (!showAllLang()) {
+        <!-- 地點 (單一語言) -->
+        <div class="detail-item">
+          <div class="detail-label">
+            <mat-icon>place</mat-icon>
+            <span>{{ translate('detail.location') }}</span>
+          </div>
+          <div class="detail-value">{{ record()!.location }}</div>
+        </div>
+        } @if (showAllLang()) {
+        <!-- Location (EN) -->
+        <div class="detail-item">
+          <div class="detail-label">
+            <mat-icon>place</mat-icon>
+            <span>Location (EN)</span>
+          </div>
+          <div class="detail-value">{{ record()!.locationEN || '-' }}</div>
+        </div>
+
+        <!-- 地點 (繁) -->
+        <div class="detail-item">
+          <div class="detail-label">
+            <mat-icon>place</mat-icon>
+            <span>地點 (繁)</span>
+          </div>
+          <div class="detail-value">{{ record()!.locationTC || '-' }}</div>
+        </div>
+
+        <!-- 地点 (简) -->
+        <div class="detail-item">
+          <div class="detail-label">
+            <mat-icon>place</mat-icon>
+            <span>地点 (简)</span>
+          </div>
+          <div class="detail-value">{{ record()!.locationSC || '-' }}</div>
+        </div>
+        } @if (!showAllLang()) {
+        <!-- 地址 (單一語言) -->
+        <div class="detail-item">
+          <div class="detail-label">
+            <mat-icon>home</mat-icon>
+            <span>{{ translate('detail.address') }}</span>
+          </div>
+          <div class="detail-value">{{ record()!.address }}</div>
+        </div>
+        } @if (showAllLang()) {
+        <!-- Address (EN) -->
+        <div class="detail-item">
+          <div class="detail-label">
+            <mat-icon>home</mat-icon>
+            <span>Address (EN)</span>
+          </div>
+          <div class="detail-value">{{ record()!.addressEN || '-' }}</div>
+        </div>
+
+        <!-- 地址 (繁) -->
+        <div class="detail-item">
+          <div class="detail-label">
+            <mat-icon>home</mat-icon>
+            <span>地址 (繁)</span>
+          </div>
+          <div class="detail-value">{{ record()!.addressTC || '-' }}</div>
+        </div>
+
+        <!-- 地址 (简) -->
+        <div class="detail-item">
+          <div class="detail-label">
+            <mat-icon>home</mat-icon>
+            <span>地址 (简)</span>
+          </div>
+          <div class="detail-value">{{ record()!.addressSC || '-' }}</div>
+        </div>
+        }
+
+        <!-- 星期 -->
+        <div class="detail-item">
+          <div class="detail-label">
+            <mat-icon>calendar_today</mat-icon>
+            <span>{{ translate('detail.dayOfWeek') }}</span>
+          </div>
+          <div class="detail-value">{{ getDayName(record()!.dayOfWeekCode) }}</div>
+        </div>
+
+        <!-- 開放時間 -->
+        <div class="detail-item">
+          <div class="detail-label">
+            <mat-icon>access_time</mat-icon>
+            <span>{{ translate('detail.openAt') }}</span>
+          </div>
+          <div class="detail-value">{{ record()!.openHour }}</div>
+        </div>
+
+        <!-- 關閉時間 -->
+        <div class="detail-item">
+          <div class="detail-label">
+            <mat-icon>access_time</mat-icon>
+            <span>{{ translate('detail.closeAt') }}</span>
+          </div>
+          <div class="detail-value">{{ record()!.closeHour }}</div>
+        </div>
+
+        <!-- Latitude -->
+        @if (record()!.latitude) {
+        <div class="detail-item">
+          <div class="detail-label">
+            <mat-icon>my_location</mat-icon>
+            <span>Latitude</span>
+          </div>
+          <div class="detail-value">{{ record()!.latitude }}</div>
+        </div>
+        }
+
+        <!-- Longitude -->
+        @if (record()!.longitude) {
+        <div class="detail-item">
+          <div class="detail-label">
+            <mat-icon>map</mat-icon>
+            <span>Longitude</span>
+          </div>
+          <div class="detail-value">{{ record()!.longitude }}</div>
+        </div>
+        }
+
+        <!-- ID -->
+        <div class="detail-item">
+          <div class="detail-label">
+            <mat-icon>tag</mat-icon>
+            <span>{{ translate('detail.id') }}</span>
+          </div>
+          <div class="detail-value">{{ record()!.id }}</div>
+        </div>
+
+        <!-- Sequence -->
+        <div class="detail-item">
+          <div class="detail-label">
+            <mat-icon>format_list_numbered</mat-icon>
+            <span>{{ translate('detail.seq') }}</span>
+          </div>
+          <div class="detail-value">{{ record()!.seq }}</div>
+        </div>
+      </div>
+
+      <!-- Google Map -->
+      @if (record()!.latitude && record()!.longitude && mapsLoaded()) {
+      <div class="map-container">
+        <h3>Location Map</h3>
+        <google-map [center]="mapCenter" [options]="mapOptions" width="100%" height="400px">
+          <map-marker
+            #marker="mapMarker"
+            [position]="markerPosition"
+            (mapClick)="openInfoWindow(marker)"
+          ></map-marker>
+          <map-info-window>
+            <div class="info-window-content">
+              <h4>{{ record()!.name }}</h4>
+              <div class="info-item">
+                <mat-icon>location_city</mat-icon>
+                <span>{{ record()!.district }}</span>
+              </div>
+              <div class="info-item">
+                <mat-icon>place</mat-icon>
+                <span>{{ record()!.location }}</span>
+              </div>
+              <div class="info-item">
+                <mat-icon>home</mat-icon>
+                <span>{{ record()!.address }}</span>
+              </div>
+              <div class="info-item">
+                <mat-icon>calendar_today</mat-icon>
+                <span>{{ getDayName(record()!.dayOfWeekCode) }}</span>
+              </div>
+              <div class="info-item">
+                <mat-icon>access_time</mat-icon>
+                <span>{{ record()!.openHour }} - {{ record()!.closeHour }}</span>
+              </div>
+            </div>
+          </map-info-window>
+        </google-map>
+      </div>
+      }
+    </mat-card-content>
+
+    <mat-card-actions align="end">
+      <button mat-raised-button color="accent" (click)="editRecord()">
+        <mat-icon>edit</mat-icon>
+        {{ translate('detail.edit') }}
+      </button>
+      <button mat-raised-button color="warn" (click)="deleteRecord()">
+        <mat-icon>delete</mat-icon>
+        {{ translate('detail.delete') }}
+      </button>
+    </mat-card-actions>
+  </mat-card>
+  }
+</div>

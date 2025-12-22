@@ -1,0 +1,197 @@
+<mat-card class="list-card">
+  <mat-card-content>
+    <!-- 載入指示器 -->
+    @if (loadingService.isLoading()) {
+    <div class="loading-container">
+      <mat-spinner diameter="50"></mat-spinner>
+      <p>{{ translate('list.loading') }}</p>
+    </div>
+    }
+
+    <!-- 資料表格 -->
+    @if (!loadingService.isLoading()) {
+    <!-- 桌面版表格 -->
+    <div class="table-container desktop-table">
+      <table mat-table [dataSource]="records()" class="full-width-table">
+        <!-- 名稱欄位 -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>{{ translate('detail.name') }}</th>
+          <td mat-cell *matCellDef="let record">{{ record.name }}</td>
+        </ng-container>
+
+        <!-- 名稱 (EN) -->
+        <ng-container matColumnDef="nameEN">
+          <th mat-header-cell *matHeaderCellDef>Name (EN)</th>
+          <td mat-cell *matCellDef="let record">{{ record.nameEN || '-' }}</td>
+        </ng-container>
+
+        <!-- 名稱 (TC) -->
+        <ng-container matColumnDef="nameTC">
+          <th mat-header-cell *matHeaderCellDef>名稱 (繁)</th>
+          <td mat-cell *matCellDef="let record">{{ record.nameTC || '-' }}</td>
+        </ng-container>
+
+        <!-- 名稱 (SC) -->
+        <ng-container matColumnDef="nameSC">
+          <th mat-header-cell *matHeaderCellDef>名称 (简)</th>
+          <td mat-cell *matCellDef="let record">{{ record.nameSC || '-' }}</td>
+        </ng-container>
+
+        <!-- 地區欄位 -->
+        <ng-container matColumnDef="district">
+          <th mat-header-cell *matHeaderCellDef>{{ translate('detail.district') }}</th>
+          <td mat-cell *matCellDef="let record">{{ record.district }}</td>
+        </ng-container>
+
+        <!-- 地區 (EN) -->
+        <ng-container matColumnDef="districtEN">
+          <th mat-header-cell *matHeaderCellDef>District (EN)</th>
+          <td mat-cell *matCellDef="let record">{{ record.districtEN || '-' }}</td>
+        </ng-container>
+
+        <!-- 地區 (TC) -->
+        <ng-container matColumnDef="districtTC">
+          <th mat-header-cell *matHeaderCellDef>地區 (繁)</th>
+          <td mat-cell *matCellDef="let record">{{ record.districtTC || '-' }}</td>
+        </ng-container>
+
+        <!-- 地區 (SC) -->
+        <ng-container matColumnDef="districtSC">
+          <th mat-header-cell *matHeaderCellDef>地区 (简)</th>
+          <td mat-cell *matCellDef="let record">{{ record.districtSC || '-' }}</td>
+        </ng-container>
+
+        <!-- 地點欄位 -->
+        <ng-container matColumnDef="location">
+          <th mat-header-cell *matHeaderCellDef>{{ translate('detail.location') }}</th>
+          <td mat-cell *matCellDef="let record">{{ record.location }}</td>
+        </ng-container>
+
+        <!-- 地點 (EN) -->
+        <ng-container matColumnDef="locationEN">
+          <th mat-header-cell *matHeaderCellDef>Location (EN)</th>
+          <td mat-cell *matCellDef="let record">{{ record.locationEN || '-' }}</td>
+        </ng-container>
+
+        <!-- 地點 (TC) -->
+        <ng-container matColumnDef="locationTC">
+          <th mat-header-cell *matHeaderCellDef>地點 (繁)</th>
+          <td mat-cell *matCellDef="let record">{{ record.locationTC || '-' }}</td>
+        </ng-container>
+
+        <!-- 地點 (SC) -->
+        <ng-container matColumnDef="locationSC">
+          <th mat-header-cell *matHeaderCellDef>地点 (简)</th>
+          <td mat-cell *matCellDef="let record">{{ record.locationSC || '-' }}</td>
+        </ng-container>
+
+        <!-- 星期欄位 -->
+        <ng-container matColumnDef="dayOfWeek">
+          <th mat-header-cell *matHeaderCellDef>{{ translate('detail.dayOfWeek') }}</th>
+          <td mat-cell *matCellDef="let record">{{ getDayName(record.dayOfWeekCode) }}</td>
+        </ng-container>
+
+        <!-- 開放時間欄位 -->
+        <ng-container matColumnDef="openHour">
+          <th mat-header-cell *matHeaderCellDef>{{ translate('detail.openAt') }}</th>
+          <td mat-cell *matCellDef="let record">{{ record.openHour }}</td>
+        </ng-container>
+
+        <!-- 關閉時間欄位 -->
+        <ng-container matColumnDef="closeHour">
+          <th mat-header-cell *matHeaderCellDef>{{ translate('detail.closeAt') }}</th>
+          <td mat-cell *matCellDef="let record">{{ record.closeHour }}</td>
+        </ng-container>
+
+        <!-- 操作欄位 -->
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let record">
+            <button
+              mat-icon-button
+              color="primary"
+              (click)="viewDetail(record)"
+              [attr.aria-label]="'View ' + record.name"
+            >
+              <mat-icon>visibility</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              color="accent"
+              (click)="editRecord(record)"
+              [attr.aria-label]="'Edit ' + record.name"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns" class="table-row"></tr>
+      </table>
+    </div>
+
+    <!-- 手機版卡片列表 -->
+    <div class="mobile-list">
+      @if (records().length === 0) {
+      <div class="no-data">
+        <mat-icon>inbox</mat-icon>
+        <p>{{ translate('list.noData') }}</p>
+      </div>
+      } @else { @for (record of records(); track record.id) {
+      <mat-card class="record-card" (click)="viewDetail(record)">
+        <mat-card-header>
+          <mat-card-title>{{ record.name }}</mat-card-title>
+          <mat-card-subtitle>{{ record.district }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="record-info">
+            <div class="info-row">
+              <mat-icon>place</mat-icon>
+              <span>{{ record.location }}</span>
+            </div>
+            <div class="info-row">
+              <mat-icon>calendar_today</mat-icon>
+              <span>{{ getDayName(record.dayOfWeekCode) }}</span>
+            </div>
+            <div class="info-row">
+              <mat-icon>access_time</mat-icon>
+              <span>{{ record.openHour }} - {{ record.closeHour }}</span>
+            </div>
+          </div>
+        </mat-card-content>
+        <mat-card-actions align="end">
+          <button
+            mat-icon-button
+            color="primary"
+            (click)="viewDetail(record); $event.stopPropagation()"
+          >
+            <mat-icon>visibility</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            color="accent"
+            (click)="editRecord(record); $event.stopPropagation()"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+      } }
+    </div>
+
+    <!-- 分頁器 -->
+    @if (records().length > 0) {
+    <mat-paginator
+      [length]="totalRecords()"
+      [pageSize]="pageSize()"
+      [pageIndex]="currentPage() - 1"
+      [pageSizeOptions]="pageSizeOptions"
+      (page)="onPageChange($event)"
+      showFirstLastButtons
+      aria-label="Select page"
+    >
+    </mat-paginator>
+    } }
+  </mat-card-content>
+</mat-card>

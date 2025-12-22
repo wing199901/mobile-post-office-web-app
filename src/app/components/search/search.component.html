@@ -1,0 +1,82 @@
+<mat-card class="search-card">
+  <mat-card-content>
+    <form [formGroup]="searchForm" class="search-form">
+      <!-- 搜尋輸入 -->
+      <mat-form-field appearance="outline" class="search-field full-width">
+        <mat-label>{{ translate('search.placeholder') }}</mat-label>
+        <input matInput formControlName="search" type="text" />
+        <mat-icon matPrefix>search</mat-icon>
+      </mat-form-field>
+
+      <!-- 篩選條件 -->
+      <div class="filters-row">
+        <!-- 地區篩選 -->
+        <mat-form-field appearance="outline" class="filter-field">
+          <mat-label>{{ translate('filter.district') }}</mat-label>
+          <mat-select formControlName="district">
+            <mat-option value="">All</mat-option>
+            @for (district of districts(); track district) {
+            <mat-option [value]="district">{{ district }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <!-- 星期篩選 -->
+        <mat-form-field appearance="outline" class="filter-field">
+          <mat-label>{{ translate('filter.dayOfWeek') }}</mat-label>
+          <mat-select formControlName="dayOfWeek">
+            <mat-option value="">All</mat-option>
+            @for (day of daysOfWeek; track day.code) {
+            <mat-option [value]="day.code">{{ day.name }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <!-- 開放時間篩選 -->
+        <mat-form-field appearance="outline" class="filter-field">
+          <mat-label>{{ translate('filter.openAt') }}</mat-label>
+          <input matInput formControlName="openAt" type="time" />
+          <mat-icon matPrefix>access_time</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <!-- 排序選項與清除按鈕 -->
+      <div class="sort-row">
+        <mat-form-field appearance="outline" class="sort-field">
+          <mat-label>{{ translate('sort.by') }}</mat-label>
+          <mat-select formControlName="sortBy">
+            @for (option of sortOptions; track option.value) {
+            <mat-option [value]="option.value">{{ translate(option.label) }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <!-- 排序方向 - 使用 button toggle group -->
+        <mat-button-toggle-group formControlName="sortDir" class="sort-direction-toggle">
+          <mat-button-toggle value="asc">
+            <mat-icon>arrow_upward</mat-icon>
+            {{ translate('sort.asc') }}
+          </mat-button-toggle>
+          <mat-button-toggle value="desc">
+            <mat-icon>arrow_downward</mat-icon>
+            {{ translate('sort.desc') }}
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+
+        <!-- 清除按鈕 -->
+        <div class="clear-btn-container">
+          <button
+            mat-raised-button
+            color="accent"
+            type="button"
+            (click)="clearFilters()"
+            class="clear-btn"
+          >
+            <mat-icon>clear_all</mat-icon>
+            {{ translate('filter.clear') }}
+          </button>
+        </div>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
