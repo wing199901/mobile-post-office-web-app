@@ -1,16 +1,16 @@
 <mat-card class="search-card">
   <mat-card-content>
     <form [formGroup]="searchForm" class="search-form">
-      <!-- 搜尋輸入 -->
+      <!-- Search input -->
       <mat-form-field appearance="outline" class="search-field full-width">
         <mat-label>{{ translate('search.placeholder') }}</mat-label>
         <input matInput formControlName="search" type="text" />
         <mat-icon matPrefix>search</mat-icon>
       </mat-form-field>
 
-      <!-- 篩選條件 -->
+      <!-- Filter criteria -->
       <div class="filters-row">
-        <!-- 地區篩選 -->
+        <!-- District filter -->
         <mat-form-field appearance="outline" class="filter-field">
           <mat-label>{{ translate('filter.district') }}</mat-label>
           <mat-select formControlName="district">
@@ -21,7 +21,7 @@
           </mat-select>
         </mat-form-field>
 
-        <!-- 星期篩選 -->
+        <!-- Day of week filter -->
         <mat-form-field appearance="outline" class="filter-field">
           <mat-label>{{ translate('filter.dayOfWeek') }}</mat-label>
           <mat-select formControlName="dayOfWeek">
@@ -32,7 +32,7 @@
           </mat-select>
         </mat-form-field>
 
-        <!-- 開放時間篩選 -->
+        <!-- Open at filter -->
         <mat-form-field appearance="outline" class="filter-field">
           <mat-label>{{ translate('filter.openAt') }}</mat-label>
           <input matInput formControlName="openAt" type="time" />
@@ -40,7 +40,7 @@
         </mat-form-field>
       </div>
 
-      <!-- 排序選項與清除按鈕 -->
+      <!-- Sort options and clear button -->
       <div class="sort-row">
         <mat-form-field appearance="outline" class="sort-field">
           <mat-label>{{ translate('sort.by') }}</mat-label>
@@ -51,7 +51,7 @@
           </mat-select>
         </mat-form-field>
 
-        <!-- 排序方向 - 使用 button toggle group -->
+        <!-- Sort direction - using button toggle group -->
         <mat-button-toggle-group formControlName="sortDir" class="sort-direction-toggle">
           <mat-button-toggle value="asc">
             <mat-icon>arrow_upward</mat-icon>
@@ -63,7 +63,7 @@
           </mat-button-toggle>
         </mat-button-toggle-group>
 
-        <!-- 清除按鈕 -->
+        <!-- Clear button -->
         <div class="clear-btn-container">
           <button
             mat-raised-button

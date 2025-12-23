@@ -44,10 +44,10 @@ export class DetailComponent implements OnInit {
   private snackBar = inject(MatSnackBar);
   private dialog = inject(MatDialog);
 
-  // 記錄資料
+  // Record data
   record = signal<MobilePostOffice | null>(null);
 
-  // 錯誤訊息
+  // Error message
   errorMessage = signal<string>('');
 
   // Store current record ID
@@ -102,7 +102,7 @@ export class DetailComponent implements OnInit {
   }
 
   /**
-   * 載入記錄詳情
+   * Load record details
    */
   private loadRecord(id: number): void {
     this.loadingService.show();
@@ -137,14 +137,14 @@ export class DetailComponent implements OnInit {
   }
 
   /**
-   * 返回列表頁
+   * Go back to list page
    */
   goBack(): void {
     this.router.navigate(['/']);
   }
 
   /**
-   * 編輯記錄
+   * Edit record
    */
   editRecord(): void {
     const id = this.record()?.id;
@@ -154,13 +154,13 @@ export class DetailComponent implements OnInit {
   }
 
   /**
-   * 刪除記錄
+   * Delete record
    */
   deleteRecord(): void {
     const record = this.record();
     if (!record) return;
 
-    // 開啟確認對話框
+    // Open confirmation dialog
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '400px',
       data: {
@@ -179,7 +179,7 @@ export class DetailComponent implements OnInit {
   }
 
   /**
-   * 執行刪除
+   * Perform delete operation
    */
   private performDelete(id: number): void {
     this.loadingService.show();
@@ -207,14 +207,14 @@ export class DetailComponent implements OnInit {
   }
 
   /**
-   * 取得翻譯文字
+   * Get translated text
    */
   translate(key: string): string {
     return this.languageService.translate(key);
   }
 
   /**
-   * 轉換 dayOfWeekCode 為星期名稱
+   * Convert dayOfWeekCode to day name
    */
   getDayName(code: number): string {
     return dayOfWeekCodeToName(code, (key: string) => this.translate(key));

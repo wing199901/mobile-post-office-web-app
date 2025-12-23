@@ -34,13 +34,13 @@ export class ListComponent implements OnInit {
   private languageService = inject(LanguageService);
   protected loadingService = inject(LoadingService);
 
-  // 接收搜尋參數
+  // Receive search parameters
   searchParams = input<QueryParams>({});
 
-  // 資料列表
+  // Data list
   records = signal<MobilePostOffice[]>([]);
 
-  // 分頁資訊
+  // Pagination info
   totalRecords = signal<number>(0);
   currentPage = signal<number>(1);
   pageSize = signal<number>(10);
@@ -48,7 +48,7 @@ export class ListComponent implements OnInit {
   // Store last search params to preserve across pagination
   private lastSearchParams: QueryParams = {};
 
-  // 顯示的欄位 (基本欄位)
+  // Displayed columns (base columns)
   private baseColumns: string[] = [
     'name',
     'district',
@@ -59,7 +59,7 @@ export class ListComponent implements OnInit {
     'actions',
   ];
 
-  // 多語言欄位
+  // Multi-language columns
   private allLangColumns: string[] = [
     'nameEN',
     'nameTC',
@@ -76,10 +76,10 @@ export class ListComponent implements OnInit {
     'actions',
   ];
 
-  // 顯示的欄位
+  // Displayed columns
   displayedColumns: string[] = this.baseColumns;
 
-  // 分頁大小選項
+  // Page size options
   pageSizeOptions: number[] = [5, 10, 20, 50, 100];
 
   ngOnInit(): void {
@@ -92,7 +92,7 @@ export class ListComponent implements OnInit {
   }
 
   /**
-   * 載入記錄
+   * Load records
    */
   loadRecords(queryParams: QueryParams = {}): void {
     this.loadingService.show();
@@ -128,7 +128,7 @@ export class ListComponent implements OnInit {
   }
 
   /**
-   * 處理分頁變更
+   * Handle pagination change
    */
   onPageChange(event: PageEvent): void {
     this.currentPage.set(event.pageIndex + 1);
@@ -138,37 +138,37 @@ export class ListComponent implements OnInit {
   }
 
   /**
-   * 查看詳細資訊
+   * View detail information
    */
   viewDetail(record: MobilePostOffice): void {
     this.router.navigate(['/detail', record.id]);
   }
 
   /**
-   * 編輯記錄
+   * Edit record
    */
   editRecord(record: MobilePostOffice): void {
     this.router.navigate(['/edit', record.id]);
   }
 
   /**
-   * 取得翻譯文字
+   * Get translated text
    */
   translate(key: string): string {
     return this.languageService.translate(key);
   }
 
   /**
-   * 當搜尋參數改變時重新載入
+   * Reload when search parameters change
    */
   onSearchChange(params: QueryParams): void {
-    this.currentPage.set(1); // 重設為第一頁
+    this.currentPage.set(1); // Reset to first page
     this.lastSearchParams = { ...params };
     this.loadRecords(params);
   }
 
   /**
-   * 轉換 dayOfWeekCode 為星期名稱
+   * Convert dayOfWeekCode to day name
    */
   getDayName(code: number): string {
     return dayOfWeekCodeToName(code);

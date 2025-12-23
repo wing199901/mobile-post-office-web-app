@@ -35,16 +35,16 @@ export class SearchComponent implements OnInit {
   private languageService = inject(LanguageService);
   private mobilePostOfficeService = inject(MobilePostOfficeService);
 
-  // 搜尋表單
+  // Search form
   searchForm!: FormGroup;
 
-  // 地區選項
+  // District options
   districts = signal<string[]>([]);
 
-  // 星期選項
+  // Day of week options
   readonly daysOfWeek = DAYS_OF_WEEK;
 
-  // 排序選項
+  // Sort options
   readonly sortOptions = [
     { value: 'id', label: 'sort.id' },
     { value: 'seq', label: 'sort.seq' },
@@ -54,7 +54,7 @@ export class SearchComponent implements OnInit {
     { value: 'closeHour', label: 'sort.closeAt' },
   ];
 
-  // 輸出事件：當搜尋條件變更時
+  // Output event: emitted when search criteria changes
   searchChange = output<QueryParams>();
 
   ngOnInit(): void {
@@ -68,7 +68,7 @@ export class SearchComponent implements OnInit {
   }
 
   /**
-   * 初始化表單
+   * Initialize form
    */
   private initForm(): void {
     this.searchForm = this.fb.group({
@@ -82,7 +82,7 @@ export class SearchComponent implements OnInit {
   }
 
   /**
-   * 載入地區列表
+   * Load district list
    */
   private loadDistricts(): void {
     const lang = this.languageService.getCurrentLanguage();
@@ -100,10 +100,10 @@ export class SearchComponent implements OnInit {
   }
 
   /**
-   * 設定表單監聽器
+   * Setup form listeners
    */
   private setupFormListeners(): void {
-    // 監聽搜尋文字變更 (使用 debounce 避免過多請求)
+    // Listen to search text changes (use debounce to avoid excessive requests)
     this.searchForm
       .get('search')
       ?.valueChanges.pipe(debounceTime(300), distinctUntilChanged())
@@ -112,7 +112,7 @@ export class SearchComponent implements OnInit {
         this.emitSearchChange();
       });
 
-    // 監聽其他欄位變更 - use setTimeout to ensure form value is updated
+    // Listen to other field changes - use setTimeout to ensure form value is updated
     ['district', 'dayOfWeek', 'openAt', 'sortBy', 'sortDir'].forEach((field) => {
       this.searchForm.get(field)?.valueChanges.subscribe((value) => {
         console.log(`Field ${field} changed to:`, value);
@@ -125,7 +125,7 @@ export class SearchComponent implements OnInit {
   }
 
   /**
-   * 發送搜尋條件變更事件
+   * Emit search criteria change event
    */
   private emitSearchChange(): void {
     const formValue = this.searchForm.value;
@@ -151,7 +151,7 @@ export class SearchComponent implements OnInit {
   }
 
   /**
-   * 清除所有篩選條件
+   * Clear all filter criteria
    */
   clearFilters(): void {
     this.searchForm.patchValue({
@@ -165,7 +165,7 @@ export class SearchComponent implements OnInit {
   }
 
   /**
-   * 取得翻譯文字
+   * Get translated text
    */
   translate(key: string): string {
     return this.languageService.translate(key);

@@ -12,7 +12,7 @@ interface LanguageOption {
   providedIn: 'root',
 })
 export class LanguageService {
-  // 當前語言
+  // Current language
   private currentLanguage = signal<Language>(this.getStoredLanguage());
 
   // Language change event observable
@@ -23,14 +23,14 @@ export class LanguageService {
     return (stored as Language) || 'en';
   }
 
-  // 可用語言選項
+  // Available language options
   readonly availableLanguages: LanguageOption[] = [
     { code: 'en', label: 'English', nativeLabel: 'English' },
     { code: 'tc', label: 'Traditional Chinese', nativeLabel: '繁體中文' },
     { code: 'sc', label: 'Simplified Chinese', nativeLabel: '简体中文' },
   ];
 
-  // 翻譯字典
+  // Translation dictionary
   private translations: Record<Language, Record<string, string>> = {
     en: {
       'app.title': 'Mobile Post Office',

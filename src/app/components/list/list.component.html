@@ -1,6 +1,6 @@
 <mat-card class="list-card">
   <mat-card-content>
-    <!-- 載入指示器 -->
+    <!-- Loading indicator -->
     @if (loadingService.isLoading()) {
     <div class="loading-container">
       <mat-spinner diameter="50"></mat-spinner>
@@ -8,102 +8,102 @@
     </div>
     }
 
-    <!-- 資料表格 -->
+    <!-- Data table -->
     @if (!loadingService.isLoading()) {
-    <!-- 桌面版表格 -->
+    <!-- Desktop table -->
     <div class="table-container desktop-table">
       <table mat-table [dataSource]="records()" class="full-width-table">
-        <!-- 名稱欄位 -->
+        <!-- Name column -->
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef>{{ translate('detail.name') }}</th>
           <td mat-cell *matCellDef="let record">{{ record.name }}</td>
         </ng-container>
 
-        <!-- 名稱 (EN) -->
+        <!-- Name (EN) -->
         <ng-container matColumnDef="nameEN">
           <th mat-header-cell *matHeaderCellDef>Name (EN)</th>
           <td mat-cell *matCellDef="let record">{{ record.nameEN || '-' }}</td>
         </ng-container>
 
-        <!-- 名稱 (TC) -->
+        <!-- Name (TC) -->
         <ng-container matColumnDef="nameTC">
           <th mat-header-cell *matHeaderCellDef>名稱 (繁)</th>
           <td mat-cell *matCellDef="let record">{{ record.nameTC || '-' }}</td>
         </ng-container>
 
-        <!-- 名稱 (SC) -->
+        <!-- Name (SC) -->
         <ng-container matColumnDef="nameSC">
           <th mat-header-cell *matHeaderCellDef>名称 (简)</th>
           <td mat-cell *matCellDef="let record">{{ record.nameSC || '-' }}</td>
         </ng-container>
 
-        <!-- 地區欄位 -->
+        <!-- District column -->
         <ng-container matColumnDef="district">
           <th mat-header-cell *matHeaderCellDef>{{ translate('detail.district') }}</th>
           <td mat-cell *matCellDef="let record">{{ record.district }}</td>
         </ng-container>
 
-        <!-- 地區 (EN) -->
+        <!-- District (EN) -->
         <ng-container matColumnDef="districtEN">
           <th mat-header-cell *matHeaderCellDef>District (EN)</th>
           <td mat-cell *matCellDef="let record">{{ record.districtEN || '-' }}</td>
         </ng-container>
 
-        <!-- 地區 (TC) -->
+        <!-- District (TC) -->
         <ng-container matColumnDef="districtTC">
           <th mat-header-cell *matHeaderCellDef>地區 (繁)</th>
           <td mat-cell *matCellDef="let record">{{ record.districtTC || '-' }}</td>
         </ng-container>
 
-        <!-- 地區 (SC) -->
+        <!-- District (SC) -->
         <ng-container matColumnDef="districtSC">
           <th mat-header-cell *matHeaderCellDef>地区 (简)</th>
           <td mat-cell *matCellDef="let record">{{ record.districtSC || '-' }}</td>
         </ng-container>
 
-        <!-- 地點欄位 -->
+        <!-- Location column -->
         <ng-container matColumnDef="location">
           <th mat-header-cell *matHeaderCellDef>{{ translate('detail.location') }}</th>
           <td mat-cell *matCellDef="let record">{{ record.location }}</td>
         </ng-container>
 
-        <!-- 地點 (EN) -->
+        <!-- Location (EN) -->
         <ng-container matColumnDef="locationEN">
           <th mat-header-cell *matHeaderCellDef>Location (EN)</th>
           <td mat-cell *matCellDef="let record">{{ record.locationEN || '-' }}</td>
         </ng-container>
 
-        <!-- 地點 (TC) -->
+        <!-- Location (TC) -->
         <ng-container matColumnDef="locationTC">
           <th mat-header-cell *matHeaderCellDef>地點 (繁)</th>
           <td mat-cell *matCellDef="let record">{{ record.locationTC || '-' }}</td>
         </ng-container>
 
-        <!-- 地點 (SC) -->
+        <!-- Location (SC) -->
         <ng-container matColumnDef="locationSC">
           <th mat-header-cell *matHeaderCellDef>地点 (简)</th>
           <td mat-cell *matCellDef="let record">{{ record.locationSC || '-' }}</td>
         </ng-container>
 
-        <!-- 星期欄位 -->
+        <!-- Day of week column -->
         <ng-container matColumnDef="dayOfWeek">
           <th mat-header-cell *matHeaderCellDef>{{ translate('detail.dayOfWeek') }}</th>
           <td mat-cell *matCellDef="let record">{{ getDayName(record.dayOfWeekCode) }}</td>
         </ng-container>
 
-        <!-- 開放時間欄位 -->
+        <!-- Opening time column -->
         <ng-container matColumnDef="openHour">
           <th mat-header-cell *matHeaderCellDef>{{ translate('detail.openAt') }}</th>
           <td mat-cell *matCellDef="let record">{{ record.openHour }}</td>
         </ng-container>
 
-        <!-- 關閉時間欄位 -->
+        <!-- Closing time column -->
         <ng-container matColumnDef="closeHour">
           <th mat-header-cell *matHeaderCellDef>{{ translate('detail.closeAt') }}</th>
           <td mat-cell *matCellDef="let record">{{ record.closeHour }}</td>
         </ng-container>
 
-        <!-- 操作欄位 -->
+        <!-- Actions column -->
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef>Actions</th>
           <td mat-cell *matCellDef="let record">
@@ -131,7 +131,7 @@
       </table>
     </div>
 
-    <!-- 手機版卡片列表 -->
+    <!-- Mobile card list -->
     <div class="mobile-list">
       @if (records().length === 0) {
       <div class="no-data">
@@ -180,7 +180,7 @@
       } }
     </div>
 
-    <!-- 分頁器 -->
+    <!-- Paginator -->
     @if (records().length > 0) {
     <mat-paginator
       [length]="totalRecords()"

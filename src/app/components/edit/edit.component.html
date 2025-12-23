@@ -1,5 +1,5 @@
 <div class="edit-container">
-  <!-- 載入指示器 -->
+  <!-- Loading indicator -->
   @if (loadingService.isLoading()) {
   <div class="loading-container">
     <mat-spinner diameter="50"></mat-spinner>
@@ -7,7 +7,7 @@
   </div>
   }
 
-  <!-- 編輯表單 -->
+  <!-- Edit form -->
   @if (!loadingService.isLoading()) {
   <mat-card class="edit-card">
     <mat-card-header>
@@ -161,7 +161,7 @@
           </mat-form-field>
         </div>
 
-        <!-- 星期 -->
+        <!-- Day of week -->
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>{{ translate('form.dayOfWeek') }}</mat-label>
           <mat-select formControlName="dayOfWeekCode" required>
@@ -175,9 +175,9 @@
           }
         </mat-form-field>
 
-        <!-- 時間行 -->
+        <!-- Time row -->
         <div class="time-row">
-          <!-- 開放時間 -->
+          <!-- Opening time -->
           <mat-form-field appearance="outline" class="time-field">
             <mat-label>{{ translate('form.openAt') }}</mat-label>
             <input matInput formControlName="openHour" type="time" required />
@@ -187,7 +187,7 @@
             }
           </mat-form-field>
 
-          <!-- 關閉時間 -->
+          <!-- Closing time -->
           <mat-form-field appearance="outline" class="time-field">
             <mat-label>{{ translate('form.closeAt') }}</mat-label>
             <input matInput formControlName="closeHour" type="time" required />
@@ -198,7 +198,7 @@
           </mat-form-field>
         </div>
 
-        <!-- 表單層級錯誤 -->
+        <!-- Form level errors -->
         @if ((editForm.errors?.['timeRange'] || editForm.errors?.['atLeastOneName'] ||
         editForm.errors?.['atLeastOneDistrict'] || editForm.errors?.['atLeastOneLocation'] ||
         editForm.errors?.['atLeastOneAddress']) && editForm.touched) {
@@ -241,7 +241,7 @@
           </mat-form-field>
         </div>
 
-        <!-- 按鈕 -->
+        <!-- Buttons -->
         <div class="button-row">
           <button mat-button type="button" (click)="onCancel()">
             <mat-icon>cancel</mat-icon>

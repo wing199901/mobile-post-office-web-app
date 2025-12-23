@@ -28,7 +28,7 @@ export class MobilePostOfficeService {
   getAll(queryParams: QueryParams = {}): Observable<PaginatedResponse<MobilePostOffice>> {
     let params = new HttpParams();
 
-    // 建立查詢參數 - using API spec parameter names
+    // Build query parameters - using API spec parameter names
     if (queryParams.page) {
       params = params.set('page', queryParams.page.toString());
     }
@@ -254,14 +254,14 @@ export class MobilePostOfficeService {
     let apiError: ApiError;
 
     if (error.error instanceof ErrorEvent) {
-      // 客戶端或網路錯誤
+      // Client or network error
       apiError = {
         err_code: '0000',
         err_msg: `Error: ${error.error.message}`,
         statusCode: 0,
       };
     } else {
-      // 後端錯誤 - extract from API envelope
+      // Backend error - extract from API envelope
       if (error.error?.header) {
         apiError = {
           err_code: error.error.header.err_code || '0401',

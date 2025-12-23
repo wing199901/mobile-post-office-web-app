@@ -53,7 +53,7 @@ button.mat-mdc-menu-item.active {
   font-weight: 500;
 }
 
-/* 平板和手機 */
+/* Tablet and mobile */
 @media (max-width: 768px) {
   .app-title {
     font-size: 1rem;

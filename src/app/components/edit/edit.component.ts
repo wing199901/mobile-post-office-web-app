@@ -49,24 +49,24 @@ export class EditComponent implements OnInit {
   protected loadingService = inject(LoadingService);
   private snackBar = inject(MatSnackBar);
 
-  // 表單
+  // Form
   editForm!: FormGroup;
 
-  // 編輯模式 (true = 編輯, false = 新增)
+  // Edit mode (true = edit, false = create)
   isEditMode = signal<boolean>(false);
 
-  // 記錄 ID (編輯模式使用)
+  // Record ID (used in edit mode)
   recordId = signal<number | null>(null);
 
-  // 地區選項 (多語言)
+  // District options (multi-language)
   districtsEN = signal<string[]>([]);
   districtsTC = signal<string[]>([]);
   districtsSC = signal<string[]>([]);
 
-  // 載入記錄標誌 (防止載入時觸發同步)
+  // Loading record flag (prevent triggering sync during load)
   private isLoadingRecord = false;
 
-  // 星期選項
+  // Day of week options
   readonly daysOfWeek = DAYS_OF_WEEK;
 
   ngOnInit(): void {
@@ -74,7 +74,7 @@ export class EditComponent implements OnInit {
     this.loadAllDistricts();
     this.setupDistrictSync();
 
-    // 檢查是否為編輯模式
+    // Check if in edit mode
     this.route.params.subscribe((params) => {
       const id = params['id'];
       if (id) {
@@ -86,7 +86,7 @@ export class EditComponent implements OnInit {
   }
 
   /**
-   * 初始化表單
+   * Initialize form
    */
   private initForm(): void {
     this.editForm = this.fb.group(
@@ -143,7 +143,7 @@ export class EditComponent implements OnInit {
   }
 
   /**
-   * 時間範圍驗證器
+   * Time range validator
    */
   private timeRangeValidator(group: AbstractControl): ValidationErrors | null {
     const openHour = group.get('openHour')?.value;
@@ -155,7 +155,7 @@ export class EditComponent implements OnInit {
   }
 
   /**
-   * 至少需要一個名稱欄位 (nameEN/nameTC/nameSC)
+   * At least one name field required (nameEN/nameTC/nameSC)
    */
   private atLeastOneNameValidator(group: AbstractControl): ValidationErrors | null {
     const nameEN = group.get('nameEN')?.value;
@@ -169,7 +169,7 @@ export class EditComponent implements OnInit {
   }
 
   /**
-   * 至少需要一個地區欄位 (districtEN/districtTC/districtSC)
+   * At least one district field required (districtEN/districtTC/districtSC)
    */
   private atLeastOneDistrictValidator(group: AbstractControl): ValidationErrors | null {
     const districtEN = group.get('districtEN')?.value;
@@ -183,7 +183,7 @@ export class EditComponent implements OnInit {
   }
 
   /**
-   * 至少需要一個地點欄位 (locationEN/locationTC/locationSC)
+   * At least one location field required (locationEN/locationTC/locationSC)
    */
   private atLeastOneLocationValidator(group: AbstractControl): ValidationErrors | null {
     const locationEN = group.get('locationEN')?.value;
@@ -197,7 +197,7 @@ export class EditComponent implements OnInit {
   }
 
   /**
-   * 至少需要一個地址欄位 (addressEN/addressTC/addressSC)
+   * At least one address field required (addressEN/addressTC/addressSC)
    */
   private atLeastOneAddressValidator(group: AbstractControl): ValidationErrors | null {
     const addressEN = group.get('addressEN')?.value;
@@ -211,7 +211,7 @@ export class EditComponent implements OnInit {
   }
 
   /**
-   * 設置地區欄位同步
+   * Setup district field synchronization
    */
   private setupDistrictSync(): void {
     // When districtEN changes, find and set corresponding TC and SC values
@@ -371,7 +371,7 @@ export class EditComponent implements OnInit {
     console.log('Is Edit Mode:', this.isEditMode());
 
     if (this.isEditMode() && this.recordId()) {
-      // 更新記錄
+      // Update record
       this.mobilePostOfficeService.update(this.recordId()!, formData).subscribe({
         next: (record) => {
           this.loadingService.hide();
@@ -389,7 +389,7 @@ export class EditComponent implements OnInit {
         },
       });
     } else {
-      // 新增記錄
+      // Create record
       this.mobilePostOfficeService.create(formData).subscribe({
         next: (record) => {
           this.loadingService.hide();
@@ -410,7 +410,7 @@ export class EditComponent implements OnInit {
   }
 
   /**
-   * 取消編輯
+   * Cancel editing
    */
   onCancel(): void {
     if (this.isEditMode() && this.recordId()) {
@@ -421,7 +421,7 @@ export class EditComponent implements OnInit {
   }
 
   /**
-   * 取得欄位錯誤訊息
+   * Get field error message
    */
   getErrorMessage(fieldName: string): string {
     const field = this.editForm.get(fieldName);
@@ -456,7 +456,7 @@ export class EditComponent implements OnInit {
   }
 
   /**
-   * 取得表單層級錯誤訊息
+   * Get form level error message
    */
   getFormErrorMessage(): string {
     if (this.editForm.errors?.['timeRange']) {
@@ -478,7 +478,7 @@ export class EditComponent implements OnInit {
   }
 
   /**
-   * 取得翻譯文字
+   * Get translated text
    */
   translate(key: string): string {
     return this.languageService.translate(key);

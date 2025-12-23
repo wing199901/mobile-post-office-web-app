@@ -44,7 +44,7 @@
   margin-bottom: 1rem;
 }
 
-/* 手機版卡片列表 */
+/* Mobile card list */
 .mobile-list {
   display: none;
 }
@@ -78,14 +78,14 @@
   color: rgba(0, 0, 0, 0.54);
 }
 
-/* 平板：隱藏部分欄位 */
+/* Tablet: Hide some columns */
 @media (max-width: 1024px) {
   .desktop-table table {
     font-size: 0.875rem;
   }
 }
 
-/* 手機：使用卡片布局 */
+/* Mobile: Use card layout */
 @media (max-width: 768px) {
   .desktop-table {
     display: none;
@@ -96,7 +96,7 @@
   }
 }
 
-/* 分頁器樣式 */
+/* Paginator styles */
 mat-paginator {
   margin-top: 1rem;
 }

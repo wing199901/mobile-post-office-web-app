@@ -143,20 +143,17 @@ npm run build
 dist/mobile-post-office-web-app/
 ```
 
-### Run Tests
+## 🧪 Testing
 
-```bash
-# Run all tests
-npm test
+### Test Status
 
-# Run with coverage
-npm test -- --coverage
+✅ **All tests passing** (Last updated: 2025-12-23)
+- **Test Files**: 3 passed
+- **Total Tests**: 36 passed
+- **Failures**: 0
+- **Errors**: 0
 
-# Watch mode
-npm test -- --watch
-```
-
-**Test Results:**
+**Test Breakdown:**
 ```
 ✓ Service Tests: 19 passed
 ✓ App Tests: 2 passed  
@@ -164,6 +161,80 @@ npm test -- --watch
 ─────────────────────────────
 ✅ Total: 36/36 passing
 ```
+
+### Running Tests
+
+```bash
+# Run all tests
+npm test
+
+# Run tests in watch mode
+npm test -- --watch
+
+# Run tests with coverage
+npm test -- --coverage
+
+# Run specific test file
+npm test -- src/app/app.spec.ts
+```
+
+### Test Framework
+
+- **Framework**: Vitest (recommended by Angular 21)
+- **Test Types**: Unit Tests, Component Tests, Service Tests
+- **Coverage**: Components, Services, Models
+
+### Coverage Goals
+
+| Area | Target Coverage |
+|------|----------------|
+| Services | 90%+ |
+| Components | 80%+ |
+| Models | 100% |
+| Utilities | 90%+ |
+
+### Best Practices
+
+#### 1. Isolation
+- Each test should be independent
+- Use mocks for external dependencies
+- Reset state between tests
+
+#### 2. Clarity
+- Use descriptive test names
+- Follow "should..." naming convention
+- Group related tests with `describe` blocks
+
+#### 3. Coverage
+- Test happy paths and error cases
+- Test edge cases and boundary conditions
+- Verify error handling
+
+### Common Issues & Solutions
+
+#### Issue: Tests fail with "NullInjectorError"
+**Solution**: Ensure all required providers are included in TestBed configuration
+
+#### Issue: HTTP tests fail
+**Solution**: Remember to call `httpMock.verify()` in `afterEach`
+
+#### Issue: Async tests timeout
+**Solution**: Use `async/await` or `fakeAsync/tick` for async operations
+
+#### Issue: Component tests fail on render
+**Solution**: Include `BrowserAnimationsModule` for Material components
+
+### Test Documentation
+
+Detailed test documentation is available in component and service folders:
+- [List Component Tests](src/app/components/list/README.md) - 15 test cases
+- [Service Tests](src/app/services/README.md) - 19 test cases
+
+### References
+
+- [Vitest Documentation](https://vitest.dev/)
+- [Angular Testing Guide](https://angular.dev/guide/testing)
+- [Testing Best Practices](https://angular.dev/guide/testing/best-practices)
 
 ## 🔌 API Integration
 

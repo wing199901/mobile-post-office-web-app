@@ -32,13 +32,13 @@ body {
   text-transform: none;
 }
 
-/* 錯誤 Snackbar 樣式 */
+/* Error snackbar styles */
 .error-snackbar {
   --mdc-snackbar-container-color: #f44336;
   --mat-snack-bar-button-color: #fff;
 }
 
-/* 自訂滾動條 */
+/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -78,7 +78,7 @@ body {
   }
 }
 
-/* 輔助類 */
+/* Helper classes */
 .text-center {
   text-align: center;
 }

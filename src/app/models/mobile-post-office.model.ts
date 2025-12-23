@@ -1,15 +1,15 @@
-// 移動郵局記錄介面
+// Mobile post office record interface
 export interface MobilePostOffice {
   id: number;
-  mobileCode?: string;
-  seq?: number;
+  mobileCode: string;
+  seq: number;
   name: string;
   district: string;
   location: string;
   address: string;
-  openHour: string; // 開放時間 (HH:MM 格式)
-  closeHour: string; // 關閉時間 (HH:MM 格式)
-  dayOfWeekCode: number; // 星期幾代碼 (1-7)
+  openHour: string; // Opening time (HH:MM format)
+  closeHour: string; // Closing time (HH:MM format)
+  dayOfWeekCode: number; // Day of week code (1-7)
   latitude?: string;
   longitude?: string;
   // Language-specific fields (when lang=all)
@@ -60,7 +60,7 @@ export interface PaginatedResponse<T> {
   totalPages: number;
 }
 
-// 查詢參數
+// Query parameters
 export interface QueryParams {
   page?: number;
   limit?: number;
@@ -75,7 +75,7 @@ export interface QueryParams {
   lang?: 'en' | 'tc' | 'sc' | 'all';
 }
 
-// 表單資料
+// Form data for API submission
 export interface MobilePostOfficeForm {
   mobileCode?: string;
   seq?: number;
@@ -98,17 +98,17 @@ export interface MobilePostOfficeForm {
   longitude?: string;
 }
 
-// API 錯誤回應
+// API error response
 export interface ApiError {
   err_code: string;
   err_msg: string;
   statusCode?: number;
 }
 
-// 語言選項
+// Language options
 export type Language = 'en' | 'tc' | 'sc' | 'all';
 
-// 星期選項 (1=Monday, 7=Sunday)
+// Day of week options (1=Monday, 7=Sunday)
 export const DAYS_OF_WEEK = [
   { code: 1, name: 'Monday' },
   { code: 2, name: 'Tuesday' },

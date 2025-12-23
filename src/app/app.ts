@@ -32,42 +32,42 @@ export class App {
   protected readonly title = signal('mobile-post-office-web-app');
 
   /**
-   * 切換語言
+   * Change language
    */
   changeLanguage(lang: Language): void {
     this.languageService.setLanguage(lang);
   }
 
   /**
-   * 導航到首頁
+   * Navigate to home page
    */
   goHome(): void {
     this.router.navigate(['/']);
   }
 
   /**
-   * 導航到新增頁面
+   * Navigate to create page
    */
   goCreate(): void {
     this.router.navigate(['/create']);
   }
 
   /**
-   * 取得翻譯文字
+   * Get translated text
    */
   translate(key: string): string {
     return this.languageService.translate(key);
   }
 
   /**
-   * 取得當前語言
+   * Get current language
    */
   getCurrentLanguage(): Language {
     return this.languageService.getCurrentLanguage();
   }
 
   /**
-   * 取得可用語言
+   * Get available languages
    */
   getAvailableLanguages() {
     return this.languageService.availableLanguages;

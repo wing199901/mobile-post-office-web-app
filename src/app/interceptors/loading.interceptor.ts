@@ -4,7 +4,8 @@ import { finalize } from 'rxjs/operators';
 import { LoadingService } from '../services/loading.service';
 
 /**
- * HTTP 攔截器 - 自動管理載入狀態
+ * HTTP Interceptor - Automatically manage loading state
+ * Shows loading indicator before HTTP request and hides it after completion
  */
 export const loadingInterceptor: HttpInterceptorFn = (req, next) => {
   const loadingService = inject(LoadingService);

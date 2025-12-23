@@ -215,6 +215,8 @@ describe('MobilePostOfficeService', () => {
         header: { success: true, message: 'record found' },
         result: {
           id: 123,
+          mobileCode: 'MBL001',
+          seq: 1,
           name: '流動郵政局 1',
           district: '元朗區',
           location: '深井',

@@ -4,21 +4,21 @@ import { Injectable, signal } from '@angular/core';
   providedIn: 'root',
 })
 export class LoadingService {
-  // 載入狀態
+  // Loading state
   private loading = signal<boolean>(false);
 
-  // 載入計數器 (支援多個並行請求)
+  // Loading counter (supports multiple concurrent requests)
   private loadingCount = 0;
 
   /**
-   * 取得載入狀態
+   * Get loading state
    */
   isLoading() {
     return this.loading();
   }
 
   /**
-   * 顯示載入指示器
+   * Show loading indicator
    */
   show(): void {
     this.loadingCount++;
@@ -26,7 +26,7 @@ export class LoadingService {
   }
 
   /**
-   * 隱藏載入指示器
+   * Hide loading indicator
    */
   hide(): void {
     this.loadingCount--;
@@ -37,7 +37,7 @@ export class LoadingService {
   }
 
   /**
-   * 重設載入狀態
+   * Reset loading state
    */
   reset(): void {
     this.loadingCount = 0;
