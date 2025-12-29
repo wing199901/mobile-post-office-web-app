@@ -68,21 +68,24 @@ export class DetailComponent implements OnInit {
 
   ngOnInit(): void {
     // Load Google Maps API dynamically
-    this.googleMapsLoader.load().then(() => {
-      // Wait a bit to ensure google.maps is fully loaded
-      setTimeout(() => {
-        if (typeof google !== 'undefined' && google.maps) {
-          this.mapOptions = {
-            zoom: 15,
-            mapTypeId: google.maps.MapTypeId.ROADMAP,
-          };
-          this.mapsLoaded.set(true);
-        }
-      }, 100);
-    }).catch(error => {
-      console.error('Failed to load Google Maps:', error);
-      this.mapsLoaded.set(false);
-    });
+    this.googleMapsLoader
+      .load()
+      .then(() => {
+        // Wait a bit to ensure google.maps is fully loaded
+        setTimeout(() => {
+          if (typeof google !== 'undefined' && google.maps) {
+            this.mapOptions = {
+              zoom: 15,
+              mapTypeId: google.maps.MapTypeId.ROADMAP,
+            };
+            this.mapsLoaded.set(true);
+          }
+        }, 100);
+      })
+      .catch((error) => {
+        console.error('Failed to load Google Maps:', error);
+        this.mapsLoaded.set(false);
+      });
 
     this.route.params.subscribe((params) => {
       const id = +params['id'];

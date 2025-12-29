@@ -434,11 +434,7 @@ describe('MobilePostOfficeService', () => {
     it('should return list of districts', () => {
       const mockResponse: ApiResponse<Array<{ district: string }>> = {
         header: { success: true, message: 'districts retrieved' },
-        result: [
-          { district: 'Yuen Long' },
-          { district: 'Tuen Mun' },
-          { district: 'Tsuen Wan' },
-        ],
+        result: [{ district: 'Yuen Long' }, { district: 'Tuen Mun' }, { district: 'Tsuen Wan' }],
       };
 
       service.getDistricts().subscribe((districts) => {
@@ -454,11 +450,7 @@ describe('MobilePostOfficeService', () => {
     it('should include lang parameter', () => {
       const mockResponse: ApiResponse<Array<{ district: string }>> = {
         header: { success: true, message: 'districts retrieved' },
-        result: [
-          { district: '元朗區' },
-          { district: '屯門區' },
-          { district: '荃灣區' },
-        ],
+        result: [{ district: '元朗區' }, { district: '屯門區' }, { district: '荃灣區' }],
       };
 
       service.getDistricts('tc').subscribe();
@@ -479,10 +471,7 @@ describe('MobilePostOfficeService', () => {
       });
 
       const req = httpMock.expectOne((request) => request.url.includes('/mobileposts'));
-      req.flush(
-        { message: 'Network error' },
-        { status: 500, statusText: 'Internal Server Error' }
-      );
+      req.flush({ message: 'Network error' }, { status: 500, statusText: 'Internal Server Error' });
     });
 
     it('should extract error from API envelope format', () => {
