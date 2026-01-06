@@ -2,10 +2,10 @@
 
 @import 'tailwindcss';
 
-/* 引入 Angular Material 預建主題 */
+/* Import Angular Material prebuilt theme */
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
 
-/* 全域重設和基本樣式 */
+/* Global reset and basic styles */
 * {
   margin: 0;
   padding: 0;
@@ -23,7 +23,7 @@ body {
   background-color: #f5f5f5;
 }
 
-/* 自訂 Material 元件樣式 */
+/* Custom Material component styles */
 .mat-mdc-raised-button {
   text-transform: none;
 }
@@ -57,7 +57,7 @@ body {
   background: #555;
 }
 
-/* 響應式工具類 */
+/* Responsive utility classes */
 .hide-mobile {
   display: block;
 }

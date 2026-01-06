@@ -30,7 +30,7 @@ export interface MobilePostOffice {
 // API Response Header
 export interface ApiHeader {
   success: boolean;
-  message: string;
+  message?: string;
   err_code?: string;
   err_msg?: string;
 }
@@ -41,7 +41,7 @@ export interface ApiMeta {
   limit: number;
   total: number;
   totalPages: number;
-  lang?: string;
+  lang: string;
 }
 
 // API Response Envelope
@@ -102,7 +102,6 @@ export interface MobilePostOfficeForm {
 export interface ApiError {
   err_code: string;
   err_msg: string;
-  statusCode?: number;
 }
 
 // Language options

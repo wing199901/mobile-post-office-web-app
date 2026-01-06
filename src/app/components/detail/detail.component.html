@@ -22,7 +22,7 @@
   </div>
   }
 
-  <!-- 錯誤訊息 -->
+  <!-- Error message -->
   @if (errorMessage() && !loadingService.isLoading()) {
   <mat-card class="error-card">
     <mat-card-content>
@@ -37,7 +37,7 @@
   </mat-card>
   }
 
-  <!-- 記錄詳情 -->
+  <!-- Record details -->
   @if (record() && !loadingService.isLoading()) {
   <mat-card class="detail-card">
     <mat-card-header>

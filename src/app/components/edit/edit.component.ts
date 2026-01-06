@@ -128,7 +128,7 @@ export class EditComponent implements OnInit {
   private timeFormatValidator(control: AbstractControl): ValidationErrors | null {
     if (!control.value) return null;
 
-    const timeRegex = /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/;
+    const timeRegex = /^([01]\d|2[0-3]):[0-5]\d$/;
     if (!timeRegex.test(control.value)) {
       return { timeFormat: true };
     }

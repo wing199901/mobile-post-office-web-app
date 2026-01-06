@@ -9,7 +9,6 @@ import {
   MobilePostOfficeForm,
   ApiError,
   ApiResponse,
-  ApiMeta,
 } from '../models/mobile-post-office.model';
 import { environment } from '../../environments/environment';
 
@@ -23,7 +22,7 @@ export class MobilePostOfficeService {
   private readonly apiUrl = `${environment.apiUrl}/api/mobileposts`;
 
   /**
-   * 取得分頁的移動郵局列表
+   * Get all mobile post office records with optional query parameters
    */
   getAll(queryParams: QueryParams = {}): Observable<PaginatedResponse<MobilePostOffice>> {
     let params = new HttpParams();
@@ -221,7 +220,7 @@ export class MobilePostOfficeService {
 
   /**
    * Get all districts list (for filtering)
-   * Uses new envelope API: /api/mobileposts/districts/all?lang={lang}
+   * Use: /api/mobileposts/districts/all?lang={lang}
    */
   getDistricts(lang?: string): Observable<string[]> {
     let params = new HttpParams();
@@ -258,7 +257,6 @@ export class MobilePostOfficeService {
       apiError = {
         err_code: '0000',
         err_msg: `Error: ${error.error.message}`,
-        statusCode: 0,
       };
     } else {
       // Backend error - extract from API envelope
@@ -266,13 +264,11 @@ export class MobilePostOfficeService {
         apiError = {
           err_code: error.error.header.err_code || '0401',
           err_msg: error.error.header.err_msg || 'Unknown server error',
-          statusCode: error.status,
         };
       } else {
         apiError = {
           err_code: '0401',
           err_msg: error.message || 'Unknown server error',
-          statusCode: error.status,
         };
       }
     }

@@ -145,7 +145,7 @@ mat-card-actions {
   flex-wrap: wrap;
 }
 
-/* 平板 */
+/* Tablet */
 @media (max-width: 768px) {
   .detail-container {
     padding: 1rem 0.5rem;
@@ -169,7 +169,7 @@ mat-card-actions {
   }
 }
 
-/* 手機 */
+/* Mobile */
 @media (max-width: 480px) {
   .detail-container {
     padding: 0.5rem;
