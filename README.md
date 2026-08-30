@@ -1,4 +1,4 @@
-# Mobile Post Office Web Application
+# Mobile Post Office Web Application (UWE Assignment)
 
 A production-ready Single Page Application (SPA) built with Angular 21 and Angular Material for managing Mobile Post Office information.
 
